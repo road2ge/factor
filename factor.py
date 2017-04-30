@@ -1,17 +1,9 @@
 import sys
 
 ######################################################################################
-############################ THANK YOU SYS MODULE ####################################
-######################################################################################
 ############################ THE REST IS MADE BY: ####################################
 ################################# Kale Miller  #######################################
 ######################################################################################
-
-'''def checkInBounds(list,index):
-     Checks if an index is in bounds of a list. Returns True or False
-    if index < 0 and index < len(list):
-        return False
-    return True'''
 
 def findFactors(num, human=False):
     '''Finds all integer factors of an integer'''
@@ -101,18 +93,6 @@ def findCommonFactors(numlist, hidden=False):
     else:
         return commonFactors
 
-'''def isPrime(integer):
-    integer = int(integer)
-    possible_factor = 2
-
-    while possible_factor <= integer ** .5 + 1:
-        if integer % possible_factor == 0:
-            return False
-        else:
-            possible_factor += 1
-
-    return True'''
-
 def trinomial(a,b,c):
 
     print "There is no guarantee that any of this will work."
@@ -137,8 +117,10 @@ def trinomial(a,b,c):
                     solution1 = i
                     solution2 = j
         return solution1, solution2
+    facWay = False
     try:
         solution1, solution2 = factorWay()
+        facWay = True
     except:
         pass
 
@@ -150,23 +132,26 @@ def trinomial(a,b,c):
         if int(number) == number:
             return True
         return False
-    if a == 1:
-        returnString = "(X + " + str(solution1) + ")(X + " + str(solution2) + ")"
-    elif a == -1:
-        returnString = "(-X + " + str(solution1) + ")(X + " + str(solution2) + ")"
-    elif type(a) != int and not floatEqInt(a):
-        returnString = "You probably weren't asked to factor this. Come up with it yourself."
-        returnString += "\n the solutions are " + solution1 + solution2
-    elif a > 0:
-        if solution2 % a == 0 and floatEqInt(solution2):
-            returnString = "(" + str(a) + "X + " + str(solution1) + ")(X + " + str(solution2/a) + ")"
-        elif solution1 % a == 0 and floatEqInt(solution1):
-            returnString = "(" + str(a) + "X + " + str(solution2) + ")(X + " + str(solution1/a) + ")"
-    elif a < 0:
-        if solution2 % a == 0:
-            returnString = "(" + str(a) + "X + " + str(solution1) + ")(X + " + str(solution2/a) + ")"
-        else:
-            returnString = "(" + str(a) + "X + " + str(solution2) + ")(X + " + str(solution1/a) + ")"
+    if facWay:
+        if a == 1:
+            returnString = "(X + " + str(solution1) + ")(X + " + str(solution2) + ")"
+        elif a == -1:
+            returnString = "(-X + " + str(solution1) + ")(X + " + str(solution2) + ")"
+        elif type(a) != int and not floatEqInt(a):
+            returnString = "You probably weren't asked to factor this. Come up with it yourself."
+            returnString += "\n the solutions are " + solution1 + solution2
+        elif a > 0:
+            if solution2 % a == 0 and floatEqInt(solution2):
+                returnString = "(" + str(a) + "X + " + str(solution1) + ")(X + " + str(solution2/a) + ")"
+            elif solution1 % a == 0 and floatEqInt(solution1):
+                returnString = "(" + str(a) + "X + " + str(solution2) + ")(X + " + str(solution1/a) + ")"
+        elif a < 0:
+            if solution2 % a == 0:
+                returnString = "(" + str(a) + "X + " + str(solution1) + ")(X + " + str(solution2/a) + ")"
+            else:
+                returnString = "(" + str(a) + "X + " + str(solution2) + ")(X + " + str(solution1/a) + ")"
+    else:
+        returnString = "I doubt you can factor these. Your solutions are" + solution1 + " and " + solution2
 
     if len(returnString) < 8:
         returnString = "not factorable. Solutions are " + str(solution1) + " and " + str(solution2)
