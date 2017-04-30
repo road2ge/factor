@@ -53,9 +53,14 @@ def findCommonFactors(numlist, hidden=False):
     commonFactors = [] # list of common factors
 
     # load the lists into allFactorList
+    ind = 0
+    for a in numlist:
+        a = int(a)
+        numlist[ind] = a
+        ind += 1
+
     for i in numlist:
         allFactorList.append(findFactors(i))
-
     # iterate through factors
     def check(num):
         '''Checks to see if the correct amount of numbers are in allFactorList'''
@@ -67,31 +72,17 @@ def findCommonFactors(numlist, hidden=False):
         # essentially there should always be one correct, the rest are all the
         # other lists.
 
-        for k in allFactorList:
-            # iterate through above list
-            for l in k:
-                if l == num:
-                    correct += 1
-        if correct >= len(numlist):
-            return True
-        return False
+        for x in numlist:
+            if x % num != 0:
+                return False
+        return True
 
     for j in allFactorList:
         for k in j:
             if check(k):
                 if k not in commonFactors:
                     commonFactors.append(k)
-    if hidden:
-        returnString = ""
-        for x in commonFactors:
-            returnString += str(x) + ", "
-            returnString = returnString[:len(returnString)-2]
-            if len(returnString) != 1:
-                return returnString
-            else:
-                return "There are no common factors"
-    else:
-        return commonFactors
+    return commonFactors
 
 def trinomial(a,b,c):
 
