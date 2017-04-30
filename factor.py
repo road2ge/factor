@@ -1,7 +1,8 @@
 import sys
+command = raw_input("Would you like to factor a number, find common factors of numbers, or factor a trinomial. \nEnter factor commonFactor or factorial. \nEnter exit to quit. ")
 
 ######################################################################################
-############################ THE REST IS MADE BY: ####################################
+################################### MADE BY ##########################################
 ################################# Kale Miller  #######################################
 ######################################################################################
 
@@ -148,20 +149,18 @@ def trinomial(a,b,c):
         returnString = "not factorable. Solutions are " + str(solution1) + " and " + str(solution2)
     return returnString
 
-args = sys.argv
-if len(args) != 1:
-    if args[1] == 'factor':
-        result = findFactors(int(args[2]), True)
-        print result
-    elif args[1] == 'commonFactors':
-        result = findCommonFactors(args[2].split(","), False)
-        print result
-    elif args[1] == 'trinomial':
-        result = trinomial(int(args[2]),int(args[3]),int(args[4]))
-        print result
-
-else:
-    print "Please use proper commands. For example, factor.py factor (int)"
-    print "\navailable commands are factor (int) and commonFactors int1 int2..."
-    print "\nwhen a, b, and c are coefficients of ax^2 + bx + c, 'trinomial a b c' will return"
-    print "\n the solutions and attempt to factor the trinomial."
+while command.lower() != "exit":
+    if command.lower() == "factor":
+        numToFactor = input("Enter a number: ")
+        print findFactors(numToFactor)
+    elif command.lower() == "commonfactor":
+        numsToFactor = raw_input("Enter numbers like so: 1,2,3... ").split(",")
+        print findCommonFactors(numsToFactor)
+    elif command.lower() == "trinomial":
+        print "The form for this quadratic will be ax^2 + bx + c"
+        a = input("Enter a: ")
+        b = input("Enter b: ")
+        c = input("Enter c: ")
+        print trinomial(a,b,c)
+    elif command.lower() != "exit":
+        command = raw_input("Next command? ")
