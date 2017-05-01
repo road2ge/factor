@@ -1,4 +1,3 @@
-import sys
 command = raw_input("Would you like to factor a number, find common factors of numbers, or factor a trinomial. \nEnter factor commonFactor or factorial. \nEnter exit to quit. ")
 
 ######################################################################################
@@ -162,5 +161,4 @@ while command.lower() != "exit":
         b = input("Enter b: ")
         c = input("Enter c: ")
         print trinomial(a,b,c)
-    elif command.lower() != "exit":
-        command = raw_input("Next command? ")
+    command = raw_input("Now what would you like to do? ").lower()
