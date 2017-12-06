@@ -7,21 +7,35 @@ command = raw_input("Would you like to factor a number, find common factors of n
 
 def findFactors(num, human=False):
     '''Finds all integer factors of an integer'''
+    # ensure num is not a decimal
     num = int(num)
+    # initialize a list of factors
     factors = []
+
+    # check if num is negative, add a flag if so
     if num < 0:
         negative = True
         num *= -1
     else:
         negative = False
-    for factor in range(1, int(int(num) ** .5 + 1)):
+    
+    # iterate through [1,highest factor before repeating/switching]
+    for factor in range(1, int(num ** .5 + 1)):
+        # if num is a factor, append
         if num % factor == 0:
             factors.append(factor)
             factors.append(num / factor)
+    # negative numbers have one negative factor
+    # essentially apply rational root theorem, +- all factors
     if negative:
+        # second factor list
         factors2 = []
         for k in factors:
             factors2.append(k)
+
+        # the next few lines of code go through every other item in factors
+        # and add the negative of that particular one, then add its pair
+        # this block starts by making first negative:
         ite = True
         index = 0
         for i in factors:
@@ -29,7 +43,7 @@ def findFactors(num, human=False):
                 factors[index] = i * -1
             ite = not ite
             index += 1
-
+        # this block starts by making second negative:
         ite = False
         index = 0
         for j in factors2:
@@ -38,6 +52,8 @@ def findFactors(num, human=False):
             ite = not ite
             index += 1
         factors.extend(factors2)
+    # make things nice and neat if the function is being called by a person,
+    # and not the functions below.
     if human:
         returnString = ""
         for x in factors:
@@ -102,6 +118,7 @@ def trinomial(a,b,c):
         '''Attempt alternate way of finding solutions. Not necessarily more efficent but easier
         to manipulate, sometimes more accurate, and more integers than floats which not only looks
         nicer but can minimize the amount of anonomalous returns including weird decimals and stuff'''
+        # recall that to factor ax^2 + bx + c, find a*c that add up to b
         for i in factors:
             for j in factors:
                 if i + j == b and i * j == a * c:
@@ -123,7 +140,9 @@ def trinomial(a,b,c):
         if int(number) == number:
             return True
         return False
+    # if we can use the factoring method:
     if facWay:
+        # if a = 1 or -1, very simple to add roots into the string
         if a == 1:
             returnString = "(X + " + str(solution1) + ")(X + " + str(solution2) + ")"
         elif a == -1:
@@ -132,22 +151,27 @@ def trinomial(a,b,c):
             returnString = "You probably weren't asked to factor this. Come up with it yourself."
             returnString += "\n the solutions are " + solution1 + solution2
         elif a > 0:
+            # have to divide one of the solutions. using floatEqInt can help us determine which one to divide.
             if solution2 % a == 0 and floatEqInt(solution2):
                 returnString = "(" + str(a) + "X + " + str(solution1) + ")(X + " + str(solution2/a) + ")"
             elif solution1 % a == 0 and floatEqInt(solution1):
                 returnString = "(" + str(a) + "X + " + str(solution2) + ")(X + " + str(solution1/a) + ")"
         elif a < 0:
+            # do same but with negative a.
             if solution2 % a == 0:
                 returnString = "(" + str(a) + "X + " + str(solution1) + ")(X + " + str(solution2/a) + ")"
             else:
                 returnString = "(" + str(a) + "X + " + str(solution2) + ")(X + " + str(solution1/a) + ")"
     else:
+        # in the case decimal roots are returned.
         returnString = "I doubt you can factor these. Your solutions are" + solution1 + " and " + solution2
 
     if len(returnString) < 8:
+        # one final thing to make sure we have a returnString
         returnString = "not factorable. Solutions are " + str(solution1) + " and " + str(solution2)
     return returnString
 
+# just command things, enables users to enter multiple commands without relaunching
 while command.lower() != "exit":
     if command.lower() == "factor":
         numToFactor = input("Enter a number: ")
